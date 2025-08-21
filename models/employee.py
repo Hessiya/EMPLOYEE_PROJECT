@@ -52,5 +52,5 @@ class Employee:
      def is_active(self,is_active):
           self.is_active=is_active
 
-     def _str_(self):
-          return f"EmployeeID : {self._emp_id},Name:{self.name},Age:{self.age},Qualification:{self.qualification},DateOfJoining:{self.date_of_joining},is_active :{self._is_active}"
+     def __str__(self):
+          return f"EmployeeID : {self.emp_id},Name:{self.name},Age:{self.age},Qualification:{self.qualification},DateOfJoining:{self.date_of_joining},is_active :{self.is_active}"

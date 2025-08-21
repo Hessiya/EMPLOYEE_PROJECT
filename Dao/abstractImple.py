@@ -5,13 +5,13 @@ from typing import List
 
 class EmployeeDaoImplementation(EmployeeDaoService):
     DISPLAY_ALL = "SELECT * from employees"
-    INSERT_EMPLOYEE = "INSERT INTO employees(name,age,qualification,date_of_joining,isActive) VALUES (%s, %s, %s, %s, %s)"
+    INSERT_EMPLOYEE = "INSERT INTO employees(name,age,qualification,date_of_joining,is_active) VALUES (%s, %s, %s, %s, %s)"
     FIND_BY_ID = "SELECT * from employees WHERE emp_id =%s"
     UPDATE_EMPLOYEE = "UPDATE employees set name=%s, age=%s WHERE emp_id=%s"
     DISABLE_EMPLOYEE = "UPDATE employees set isActive='n' WHERE emp_id = %s"
    
 
-    def _init_(self):
+    def __init__(self):
         self.conn = Connection().get_connection()
 
     def insert_employees(self,employee:Employee)->bool:
@@ -38,7 +38,7 @@ class EmployeeDaoImplementation(EmployeeDaoService):
                                         age= row["age"],
                                         qualification = row["qualification"],
                                         date_of_joining =row["date_of_joining"],
-                                        is_active=row["isActive"]))
+                                        is_active=row["is_active"]))
         except Exception as e:
             print("Error fetching employees:",e)
         finally:
@@ -58,7 +58,7 @@ class EmployeeDaoImplementation(EmployeeDaoService):
                     age= row["age"],
                     qualification = row["qualification"],
                     date_of_joining =row["date_of_joining"],
-                    is_active = row["isActive"] )
+                    is_active = row["is_active"] )
                 
         except Exception as e:
             print("Error finding employee:",e)
@@ -82,6 +82,7 @@ class EmployeeDaoImplementation(EmployeeDaoService):
 
     
     def disable_employee(self,employee:Employee,emp_id:int)->bool:
+        cursor = None
         try:
             cursor = self.conn.cursor(dictionary=True)
             cursor.execute(self.DISABLE_EMPLOYEE,

@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
 
+
 def validate_name(name: str) -> bool:
     """Name: only alphabets and spaces, length 2–30"""
     if not isinstance(name, str):
